@@ -3,6 +3,6 @@ use ExtUtils::MakeMaker;
 # the contents of the Makefile that is written.
 WriteMakefile(
     'NAME'		=> 'Text::BIP',
-    'VERSION_FROM'	=> 'BIP.pm', # finds $VERSION
+    'VERSION_FROM'	=> 'lib/Text/BIP.pm', # finds $VERSION
     'PREREQ_PM'		=> { }, # e.g., Module::Name => 1.1
 );

@@ -1,7 +1,7 @@
 #XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
 name:         Text-BIP
-version:      0.5
-version_from: BIP.pm
+version:      0.51
+version_from: lib/Text/BIP.pm
 installdirs:  site
 requires:
 

@@ -10,7 +10,7 @@ package Text::BIP;
 use DirHandle;
 use File::Spec;
 use vars qw( $VERSION );
-$VERSION = '0.5';
+$VERSION = '0.51';
 
 my $path_delim=File::Spec->catfile('',''); # stupid hack, but it works. better way???
 
@@ -206,34 +206,34 @@ into your code rather then you plugging code into it like with blosxom.
 
 =head1 METHODS
 
-=head2 BIP->new( [ { depth=>integer, base=>'/path/name' } ] ) 
+=item BIP->new( [ { depth=>integer, base=>'/path/name' } ] ) 
 
 The constructor method. Can optionally set depth and base values through a hash reference. 
 Automatically calls the C<init> method.
 
-=head2 $bip->init( [ {depth=>integer, base=>'/path/name' } ] ) 
+=item $bip->init( [ {depth=>integer, base=>'/path/name' } ] ) 
 
 Clears the stash and other internal variables include the base and depth. Can optionally set depth 
 and base values through a hash reference while initializing. Is called by C<new>.
 
-=head2 $bip->depth( [ $int ] )
+=item $bip->depth( [ $int ] )
 
 Returns the maximum directory depth setting. The default is 0, no limit. A depth of 1 means do not 
 index any subdirectories found. If an optional integer parameter is passed, it sets the traversal 
 depth.
 
-=head2 $bip->base('/path/name') 
+=item $bip->base('/path/name') 
 
 Returns the path that BIP will begin indexing at unless overridden. This value is also used by 
 "relative" L<Indexing Methods> unless overridden also.
 
-=head2 $bip->stash( $key, [$value] ) 
+=item $bip->stash( $key, [$value] ) 
 
 A simple mechanism for setting and getting info. If the optional C<$value> parameter is passed it 
 sets the value. This method useful for handlers to manipulate BIP's state and persist results after
 indexing.
  
-=head2 $bip->index( ['/some/path/name'] )
+=item $bip->index( ['/some/path/name'] )
 
 Launches the traversal of a directory structure and calls handlers during operation. Providing an 
 optional path parameter overrides any value that was set in C<base>.
@@ -244,19 +244,19 @@ This group of methods are used to register callback handlers that BIP will call 
 
 are necessarily required, but BIP is rather worthless unless at least one handler and more specifically  either a file or index handler, has been set.
 
-=head2 $bip->prerun( \&coderef ) 
+=item $bip->prerun( \&coderef ) 
 
 Sets a reference to a routine that will be called when index is called, but before traversal.
 
-=head2 $bip->postrun( \&coderef ) 
+=item $bip->postrun( \&coderef ) 
 
 Sets a reference to a routine that will be called right before index returns control to its caller.
 
-=head2 $bip->index_handler( \&coderef ) 
+=item $bip->index_handler( \&coderef ) 
 
 Sets a reference to a routine that will be called when a directory is encountered, but before traversing it.
 
-=head2 $bip->file_handler( \&coderef, ext[, ext1, ext2... extn] ) 
+=item $bip->file_handler( \&coderef, ext[, ext1, ext2... extn] ) 
 
 Sets a reference to a routine that will be called when a file of a certain extension is encountered. 
 You can register a handler for a multiple extensions with one call or set each extension individually.
@@ -314,7 +314,7 @@ With them you would do something like this: (More quasi-psuedo code.)
  
 The details of these methods are as follows.
 
-=head2 $bip->read_handler( \&coderef, ext[, ext1, ext2... extn]) 
+=item $bip->read_handler( \&coderef, ext[, ext1, ext2... extn]) 
 
 Sets a handler for reading a specific file based on files extension. Like C<file_handler> you can 
 register a handler routine to multiple extensions or set each individually. You can also pass an
@@ -323,7 +323,7 @@ read_handler explicitly defined. The return type a handler is at the discretion 
 routine's author. It is recommended that you B<do not> return a value of C<undef> unless an error
 has occurred.
 
-=head2 $bip->read_file( '/full/path/to/file' )
+=item $bip->read_file( '/full/path/to/file' )
 
 Calls the associated C<read_handler> and passes through the C<$file> parameter. The return type is 
 at the discretion of the handler routine's author. It is recommended that you B<do not> return a 
@@ -334,31 +334,31 @@ value of C<undef> unless an error has occurred.
 The following methods are for handler functions to get the current state of BIP while processing an
 index call. They are only relevant during traversal.
 
-=head2 $bip->index_depth
+=item $bip->index_depth
 
 The current depth (levels of subdirectories) from the starting point of the index.
 
-=head2 $bip->dir
+=item $bip->dir
 
 The current directory.
 
-=head2 $bip->relative_dir( [ /some/other/path ] )
+=item $bip->relative_dir( [ /some/other/path ] )
 
 The current directory relative to C<base> or the optional parameter passed in.
 
-=head2 $bip->file
+=item $bip->file
 
 The current file name.
 
-=head2 $bip->ext
+=item $bip->ext
 
 The current file names extension.
 
-=head2 $bip->name
+=item $bip->name
 
 The fully path qualified filename.
 
-=head2 $bip->relative_name( [/some/other/path] )
+=item $bip->relative_name( [/some/other/path] )
 
 The relative path and filename.
 
